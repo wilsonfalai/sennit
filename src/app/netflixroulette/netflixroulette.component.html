@@ -1,20 +1,28 @@
 <div class="container">
+  <h1 class="text-center"> Netflix</h1>
+  <br />
   <div class="row">
     <div class="col-md-5">
       <form>
         <div class="form-group">
           <label for="exampleInputEmail1">Gênero</label>
           <select class="form-control">
-            <option>Default select</option>
+            <option value="0">Todos</option>
+                    <option value="1">Ação</option>
+                    <option value="2">Aventura</option>
+                    <option value="3">Drama</option>
           </select>
         </div>
 
         <div class="form-group">
           <label for="exampleInputPassword1">Avaliação</label>
           <select class="form-control">
-            <option>Default select</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
+            <option value="4">Qualquer</option>
+                    <option value="5"> >5 </option>
+                    <option value="6"> >6 </option>
+                    <option value="7"> >7 </option>
+                    <option value="8"> >8 </option>
+                    <option value="9"> >9 </option>
           </select>
         </div>
 
@@ -25,38 +33,53 @@
 
         Tipo:
         <div class="form-check form-check-inline">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"> 1
-          </label>
-        </div>
-        <div class="form-check form-check-inline">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"> 2
-          </label>
-        </div>
+           <label class="form-check-label">
+             <input class="form-check-input" type="checkbox" name="tipo[]" id="inlineCheckbox1" value="1"> Tv Show
+           </label>
+         </div>
+         <div class="form-check form-check-inline">
+           <label class="form-check-label">
+             <input class="form-check-input" type="checkbox" name="tipo[]" id="inlineCheckbox2" value="2"> Movies
+           </label>
+         </div>
 
         <div class="form-group">
-          <button type="submit" class="btn btn-success btn-lg">Sortear Filmes</button>
+          <!--<button type="submit" class="btn btn-success btn-lg">Sortear Filmes</button>-->
+
         </div>
 
       </form>
+      <button class="btn btn-success btn-lg btn-block" (click)="onClickMe()" >Girar</button>
+      {{clickMessage}}`
     </div>
     <div class="col-md-7">
-      <div class="content">
+      <div class="content text-center nomovie" *ngIf="!result">
+            <p>Deixe o destino tomar a direção.<br />Gire para ver a sugestão</p>
+      </div>
+
+      <div class="content" *ngIf="result">
         <div class="row">
           <div class="col-md-4">
-            <img class="img-responsive" src="" />
+            <!-- https://img.fstatic.com/mdqpR_T99MEJqqcp9KE_XSeHOKI=/fit-in/290x478/smart/https://cdn.fstatic.com/media/movies/covers/2012/01/d4239e5e9291444709b66690160aed95.jpg -->
+            <img class="img-fluid" src="/assets/images/poster.jpg" />
+
           </div>
           <div class="col-md-8">
-              <h4>Death Note (2006)</h4>
-              <span class="pull-left badge badge-primary">IMDB: 9</span>
-              <span> Animação, Crime</span>
-              <span class="pull-right">1 Temporada</span>
-              <p>
-                Light Yagami is an ace student with great prospects—and he’s bored out of his mind. But all that changes when he finds the Death Note, a notebook dropped...
+              <h4>{{result?.title}}</h4>
+              <div>
+                <span class="pull-left badge badge-primary">IMDB: {{result?.imdb_rating}}</span>
+                <span class="pull-right">1 Temporada</span>
+              </div>
+
+              <br />
+              <hr />
+              <p class="text-justify">
+                {{result?.overview}}
               </p>
               <button type="button" class="btn btn-info">Assistir</button>
               <button type="button" class="btn btn-light">Mais Informações</button>
+              <button type="button" class="btn btn-danger" *ngIf="result?.trailer">Assistir Trailler</button>
+
           </div>
         </div>
       </div>

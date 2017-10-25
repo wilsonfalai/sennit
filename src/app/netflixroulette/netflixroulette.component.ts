@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+//import { HttpClient } from '@angular/common/http';
+import {NetflixrouletteService} from './netflixrouletter.service'
+import {Movie} from './movie.model';
 
-interface ItemsResponse {
-  result: string;
-}
 
 
 
@@ -16,22 +15,24 @@ interface ItemsResponse {
 })
 export class NetflixrouletteComponent implements OnInit {
 
-  result: string;
+  result: Movie;
 
   // Inject HttpClient into your component or service.
- constructor(private http: HttpClient) {}
+ //constructor(private http: HttpClient) {}
+ constructor(private netflixrouletteService: NetflixrouletteService) { }
 
  ngOnInit(): void {
-   // Make the HTTP request:
-   this.http.get<ItemsResponse>('http://localhost:3000/movies',{observe: 'response'})
-   .subscribe(resp => {
-    // Here, resp is of type HttpResponse<MyJsonData>.
-    // You can inspect its headers:
-    console.log(resp.headers.get('X-Custom-Header'));
-    // And access the body directly, which is typed as MyJsonData as requested.
-    console.log(resp.body);
-  });
+     /*this.netflixrouletteService.movie()
+      .subscribe(result => this.result = result)*/
+  };
 
- }
+  onClickMe() {
+    this.netflixrouletteService.movie()
+     .subscribe(result => this.result = result)
+
+  }
+
+
+
 
 }

@@ -14,8 +14,9 @@ export class NetflixrouletteService {
   constructor(private http: Http) { }
 
   //GET /restaurants
+  //https://api.reelgood.com/roulette/netflix?nocache=true&sources=netflix
   movie(): Observable<any> {
-      return this.http.get('https://community-netflix-roulette.p.mashape.com/api.php?title=The+Boondocks')
+      return this.http.get('http://localhost:3000/movies')
       .map(response => response.json())
       .catch(ErrorHandler.handleError)
   }
